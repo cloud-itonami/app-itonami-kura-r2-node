@@ -1,0 +1,25 @@
+;; A kura storage node whose disk is an R2 bucket.
+;;
+;; The point is not that R2 can hold bytes — kura.conformance already proves
+;; that. It is that R2 becomes reachable through the SAME protocol as a machine
+;; on a shelf, so a coordinator, a placement plan and a durability run treat a
+;; rented bucket and somebody's Mac mini identically. Before this, R2 was only
+;; usable from inside a Worker that had the binding; now it is a node with a URL.
+;;
+;; Library deps are shadow source-paths from the west checkout (sibling
+;; layout), the pattern kura-conformance and kotobase-protocols-worker use.
+{:source-paths
+ ["src"
+  "../kura-node/src"
+  "../kura/src"
+  "../erasure/src"
+  "../merkle-sum/src"
+  "../sigv4/src"]
+ :dependencies []
+ :builds
+ {:worker {:target :esm
+           :output-dir "out"
+           ;; Serialize: parallel par-compile aborts under CPU contention from
+           ;; concurrent agent builds on this machine.
+           :compiler-options {:parallel-build false}
+           :modules {:worker {:exports {default kura.r2node.worker/handler}}}}}}

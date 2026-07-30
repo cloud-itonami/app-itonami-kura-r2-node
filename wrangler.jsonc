@@ -1,0 +1,10 @@
+{
+  // Serves the kura node HTTP protocol over an R2 bucket, so a rented bucket
+  // is a fleet member with a URL rather than something only reachable from
+  // inside a Worker that holds the binding.
+  "name": "kura-r2-node",
+  "main": "out/worker.js",
+  "compatibility_date": "2026-07-01",
+  "r2_buckets": [{ "binding": "SHARDS", "bucket_name": "kura-phase0" }],
+  "workers_dev": true
+}

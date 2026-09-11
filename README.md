@@ -56,7 +56,7 @@ backend is not verified by the machine that hosts it:
 
 ```bash
 KURA_NODE_TOKEN=$(kagi get kura-r2-node-token) \
-  nbb --classpath "src:script:../kura/src:../erasure/src:../merkle-sum/src:../sigv4/src" \
+  kbb --backend sci --classpath "src:script:../kura/src:../erasure/src:../merkle-sum/src:../sigv4/src" \
       script/remote_node_check.cljs https://kura-r2-node.04-feasts-minded.workers.dev
 # => over HTTP : 19 / 19 PASS
 ```
@@ -67,7 +67,7 @@ Without the token the same run stops at the first read with HTTP 401.
 
 ```bash
 npm install
-node ../../../scripts/resource-guard.mjs run build -- npx shadow-cljs release worker
+node ../../../scripts/resource-guard.mjs run build -- amu compile --target wasm32-browser worker
 npx wrangler deploy
 printf '%s' "$(kagi get kura-r2-node-token)" | npx wrangler secret put NODE_TOKEN
 ```

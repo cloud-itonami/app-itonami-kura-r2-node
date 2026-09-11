@@ -2,7 +2,7 @@
   "name": "kura-r2-node",
   "private": true,
   "scripts": {
-    "build": "shadow-cljs release worker",
+    "build": "amu compile --target wasm32-browser worker",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
